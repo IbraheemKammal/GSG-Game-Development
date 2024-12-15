@@ -50,4 +50,6 @@ public class SculptureController : MonoBehaviour
         currentCollumn.startMovment = true;
         nextCollumnIndex++;
     }
+
+
 }
