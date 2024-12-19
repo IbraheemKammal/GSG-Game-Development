@@ -43,7 +43,7 @@ namespace Assignment16
         public void Attack(int damage, Character target, string attackType)
         {
             Attack(damage, target);
-            if (attackType=="" || attackType == null) Debug.Log(attackType);
+            if (attackType == "" || attackType == null) Debug.Log(attackType);
             else Debug.Log("You had Unbelivebly made an ULTIMATE NOTHING ATTACK");
 
         }
@@ -52,8 +52,8 @@ namespace Assignment16
 
     public class Soldier : Character
     {
-        public Soldier(string name, int initialHealth, Position position) : base(name, initialHealth, position) {}
-        public Soldier():base(){}
+        public Soldier(string name, int initialHealth, Position position) : base(name, initialHealth, position) { }
+        public Soldier() : base() { }
         public override void DisplayInfo()
         {
             Debug.Log("Soldier"); base.DisplayInfo();
@@ -63,6 +63,8 @@ namespace Assignment16
     public class Officer : Character
     {
         public Officer(string name, int initialHealth, Position position) : base(name, initialHealth, position) { }
+        public Officer() : base() { }
+
         public override void DisplayInfo()
         {
             Debug.Log("Officer"); base.DisplayInfo();
