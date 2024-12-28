@@ -2,47 +2,51 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SequanceTransformers : GroupTransformers
+
+namespace Pop_Up
 {
-    readonly int firstElementIndex = 0, lastElementIndex;
-    int currentIndex;
-    List<GroupTransformers> groupTransformers = new();
-
-    GroupTransformers currentTransformer;
-    public SequanceTransformers(params GroupTransformers[] transformers)
+    public class SequanceTransformers : GroupTransformers
     {
-        foreach (var transformer in transformers)
-            this.groupTransformers.Add(transformer);
-        lastElementIndex = transformers.Length - 1;
-        currentIndex = firstElementIndex;
-        currentTransformer = groupTransformers[currentIndex];
+        readonly int firstElementIndex = 0, lastElementIndex;
+        int currentIndex;
+        List<GroupTransformers> groupTransformers = new();
 
-    }
-    public override void StartTransforming()
-    {
-        hasStarted = true;
-        if (!hasFinished && currentIndex >= firstElementIndex && currentIndex <= lastElementIndex)
+        GroupTransformers currentTransformer;
+        public SequanceTransformers(params GroupTransformers[] transformers)
         {
-            currentTransformer.StartTransforming();
-            if (currentTransformer.hasStarted && currentTransformer.hasFinished)
+            foreach (var transformer in transformers)
+                this.groupTransformers.Add(transformer);
+            lastElementIndex = transformers.Length - 1;
+            currentIndex = firstElementIndex;
+            currentTransformer = groupTransformers[currentIndex];
+
+        }
+        public override void StartTransforming()
+        {
+            hasStarted = true;
+            if (!hasFinished && currentIndex >= firstElementIndex && currentIndex <= lastElementIndex)
             {
-                ++currentIndex;
-                if (currentIndex <= lastElementIndex)
+                currentTransformer.StartTransforming();
+                if (currentTransformer.hasStarted && currentTransformer.hasFinished)
                 {
-                    currentTransformer = groupTransformers[currentIndex];
+                    ++currentIndex;
+                    if (currentIndex <= lastElementIndex)
+                    {
+                        currentTransformer = groupTransformers[currentIndex];
+                    }
                 }
+            }
+
+            if (currentIndex > lastElementIndex && currentTransformer.hasFinished)
+            {
+                hasFinished = true;
             }
         }
 
-        if (currentIndex > lastElementIndex && currentTransformer.hasFinished)
+
+        public void Dereferance()
         {
-            hasFinished = true;
+            groupTransformers = null;
         }
-    }
-
-
-    public void Dereferance()
-    {
-        groupTransformers = null;
     }
 }

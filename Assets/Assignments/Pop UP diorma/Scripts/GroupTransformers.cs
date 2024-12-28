@@ -2,35 +2,38 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GroupTransformers
+namespace Pop_Up
 {
-    public bool hasStarted, hasFinished;
-    List<Transformer> transformers;
-
-    public virtual void StartTransforming()
+    public class GroupTransformers
     {
-        hasStarted = true;
-        if (transformers.Count > 0 && transformers != null)
+        public bool hasStarted, hasFinished;
+        List<Transformer> transformers;
+
+        public virtual void StartTransforming()
         {
-            bool allFinished = true;
-            foreach (Transformer transformer in transformers)
+            hasStarted = true;
+            if (transformers.Count > 0 && transformers != null)
             {
-                transformer.StartTransforming();
-                allFinished &= transformer.hasFinished;
+                bool allFinished = true;
+                foreach (Transformer transformer in transformers)
+                {
+                    transformer.StartTransforming();
+                    allFinished &= transformer.hasFinished;
+
+                }
+                hasFinished = allFinished;
 
             }
-            hasFinished = allFinished;
-
         }
-    }
 
-    public void AddTransformers(params Transformer[] transformers)
-    {
-        this.transformers = new List<Transformer>();
-        foreach (Transformer transformer in transformers)
+        public void AddTransformers(params Transformer[] transformers)
         {
-            this.transformers.Add(transformer);
-        }
+            this.transformers = new List<Transformer>();
+            foreach (Transformer transformer in transformers)
+            {
+                this.transformers.Add(transformer);
+            }
 
+        }
     }
 }
