@@ -64,18 +64,8 @@ public class Rotator : Transformer
 
         Vector3 newRotation = endRotation * Time.deltaTime / Duration;
         if (!hasFinished) transformedObject.Rotate(newRotation, relativeTo);
-        else transformedObject.rotation = Quaternion.Euler(initialRotation + endRotation);
 
-    }
-    public void StartLerping()
-    {
 
-    }
-    public void SetRotations(Vector3 initial, Vector3 end)
-    {
-
-        initialRotation = initial;
-        endRotation = end;
     }
 
 }

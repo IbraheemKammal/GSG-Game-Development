@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class SceneManager : MonoBehaviour
 {
-    public Transform ringTransform, cameraTransform, spaceTransform, bookTransform;
+    public Transform ringTransform, cameraTransform, spaceTransform, staffTransform, swordTransform;
     public CameraDirector cameraDirector;
     Vector3 initialRingPosition, initialRingRotation, spaceInitialPosition, spaceInitialScale;
     int currentStageIndex = 1;
@@ -42,15 +42,12 @@ public class SceneManager : MonoBehaviour
     #region Stage4
     [Header("Stage4")]
     public float stage4TransformingTime = 3f;
-    public Vector3 s4_bookTransition, s4_bookRotation;
-    Transformer s4_bookTransitioner, s4_bookRotator;
+    public Vector3 s4_staffTransition, s4_staffRotation;
+    Transformer s4_swordTransitionar, s4_swordRotator;
 
     #endregion
 
-    #region Stage5 
-    [Header("Stage5")]
-    public BookHandler bookHandler;
-    #endregion
+
 
     void Awake()
     {
@@ -108,6 +105,9 @@ public class SceneManager : MonoBehaviour
         initialColor.a = spaceAlphaLerper;
 
         spaceRenderer.material.color = initialColor;
+
+
+
     }
 
     void ConfigureStage(int stage)
@@ -157,29 +157,22 @@ public class SceneManager : MonoBehaviour
                 stage3 = new(s3_g1, s3_g3, s3_g2);
 
                 currentTransformers = stage3;
-                bookTransform.SetParent(null);
-                cameraDirector.SetTarget(bookTransform, stage3TransformingTime);
+                swordTransform.SetParent(null);
+                cameraDirector.SetTarget(swordTransform, stage3TransformingTime);
                 break;
             case 4:
-                s4_bookTransitioner = new Transitionar(bookTransform, s4_bookTransition, stage4TransformingTime, selfRelativety);
+                s4_swordTransitionar = new Transitionar(swordTransform, s4_staffTransition, stage4TransformingTime, selfRelativety);
                 GroupTransformers s4_g1 = new();
-                s4_g1.AddTransformers(s4_bookTransitioner);
-                s4_bookRotator = new Rotator(bookTransform, s4_bookRotation, stage4TransformingTime, selfRelativety);
-                GroupTransformers s4_g2 = new();
-                s4_g2.AddTransformers(s4_bookRotator);
+                s4_g1.AddTransformers(s4_swordTransitionar);
 
-                stage4 = new(s4_g1, s4_g2);
+                stage4 = new(s4_g1);
                 currentTransformers = stage4;
 
                 break;
-            case 5:
-                bookHandler.isBookHeld = bookHandler.isBookClosed = true;
-                break;
+
         }
 
     }
-
-
 
 
 }
